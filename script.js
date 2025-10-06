@@ -1,39 +1,35 @@
-function Movie(title, director, year, rating) {
-    this.title = title;
-    this.director = director;
-    this.year = year;
-    this.rating = rating;
+document.addEventListener("DOMContentLoaded", function () {
+    const addButton = document.getElementById("add-task-btn");
+    const taskInput = document.getElementById("task-input");
+    const taskList = document.getElementById("task-list")
 
-}
+    function addTask() {
+        const taskText = taskInput.ariaValueMax.trim();
 
-Movie.prototype.overview = function () {
-    return `Title ${this.title}, ${this.year}, directed by ${this.director} -- ${this.rating} / 10 `;
-
-}
-
-const movie1 = new Movie("The Godfather", "Francis Ford Coppola", 1972, 9.2);
-const movie2 = new Movie("Fight Club", "David Fincher", 1999, 8.8);
-const movie3 = new Movie("The Dark Knight", "Christopher Nolan", 2008, 9.0);
-const movie4 = new Movie("Parasite", "Bong Joon-ho", 2019, 8.6);
-const movie5 = new Movie("Oppenheimer", "Christopher Nolan", 2023, 8.3);
-
-const movies = [movie1, movie2, movie3, movie4, movie5]
-
-// console.log(movie1.overview());
-// console.log(movie2.overview());
-// console.log(movie3.overview());
-// console.log(movie4.overview());
-
-function isClassic() {
-    for (let movie in movies) {
-        if (movie.year <= 2000) {
-            console.log(`This ${title} movie is a classic movie`);
-        }
-        else {
-            console.log(`this movie is not a classic movie`);
+        if (taskText === "") {
+            alert("Please enter a task.");
+            return;
         }
     }
-}
 
-isClassic();
+    const li = document.createElement("li");
+    li.textContent = taskText;
+
+    const removeBtn = document.createElement("button");
+    removeBtn.textContent = "Remove";
+    removeBtn.className = "remove-btn";
+
+    li.appendChild(removeBtn);
+    taskList.appendChild(li);
+
+    taskInput.value = "";
+
+    addButton.addEventListener("click", addTask);
+
+    taskInput.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            addTask();
+        }
+    })
+})
 
