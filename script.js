@@ -1,36 +1,50 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Form Selection
     const form = document.getElementById("registration-form");
-    const addButton = document.getElementById("add-task-btn");
-    const taskInput = document.getElementById("task-input");
-    const taskList = document.getElementById("task-list")
 
-    function addTask() {
-        const taskText = taskInput.ariaValueMax.trim();
+    // Feedback Division Selection
+    const feedbackDiv = document.getElementById("form-feedback");
 
-        if (taskText === "") {
-            alert("Please enter a task.");
-            return;
+    // Form Submission and Event Prevention
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        // Input Retrieval and Trimming
+        const username = document.getElementById("username").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        // Validation Logic
+        let isValid = true;
+        let messages = [];
+
+        // Username Validation
+        if (username.length < 3) {
+            isValid = false;
+            messages.push("Username must be at least 3 characters long.");
         }
-    }
 
-    const li = document.createElement("li");
-    li.textContent = taskText;
-
-    const removeBtn = document.createElement("button");
-    removeBtn.textContent = "Remove";
-    removeBtn.className = "remove-btn";
-
-    li.appendChild(removeBtn);
-    taskList.appendChild(li);
-
-    taskInput.value = "";
-
-    addButton.addEventListener("click", addTask);
-
-    taskInput.addEventListener("keypress", function (event) {
-        if (event.key === "Enter") {
-            addTask();
+        // Email Validation
+        if (!email.includes("@") || !email.includes(".")) {
+            isValid = false;
+            messages.push("Email must contain '@' and '.' characters.");
         }
-    })
-})
 
+        // Password Validation
+        if (password.length < 8) {
+            isValid = false;
+            messages.push("Password must be at least 8 characters long.");
+        }
+
+        // Displaying Feedback
+        feedbackDiv.style.display = "block";
+
+        if (isValid) {
+            feedbackDiv.textContent = "Registration successful!";
+            feedbackDiv.style.color = "#28a745";
+        } else {
+            feedbackDiv.innerHTML = messages.join("<br>");
+            feedbackDiv.style.color = "#dc3545";
+        }
+    });
+});
