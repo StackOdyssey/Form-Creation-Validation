@@ -60,10 +60,3 @@ button:hover {
     display: none;
     /* Initially hide the feedback div */
 }
-
-label,
-input,
-span.error-message {
-    display: block;
-    margin-bottom: 8px;
-}
